@@ -19,7 +19,7 @@ From the above result, we can conduct that new implementation make full use of h
 
 # Implementation of Inter Layer Balance(CNN-SVM)
 Similary, CNN-SVM of inter layer balance is also deployed in this platform.  
-![image2](Implementation%20of%20Inter%20Layer%20Balance(CNN-SVM)/Impl%20of%20Device3.png)
+![image2](Implementation%20of%20Inter%20Layer%20Balance(CNN-SVM)/Impl%20of%20Device3.png)  
 This result is the optimal accelerator for CNN-SVM hybrid network based on FPGA.  
 
 # PS_Standalone(CNN-SVM)
