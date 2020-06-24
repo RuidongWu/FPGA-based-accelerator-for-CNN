@@ -15,7 +15,7 @@ Then we should make a balance of inter layer.
 # Implementation of Inter Layer Balance(CNN)
 An inter layer balance is implemented after design space exploration, and the new result of board device implmentation is following:
 ![image1](Implementation%20of%20Inter%20Layer%20Balance(CNN)/Impl%20of%20Device2.png)
-From the above result, we can conduct that new implementation make full use of hardware resource.
+From the above result, we can conduct that new implementation make full use of hardware resources.
 
 # Implementation of Inter Layer Balance(CNN-SVM)
 Similary, CNN-SVM of inter layer balance is also deployed in this platform.
