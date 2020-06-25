@@ -1,10 +1,10 @@
 # FPGA-based-accelerator-for-CNN-SVM
 ## Hardware
-This project uses the hardware platform about Edgeboard Lite (Baidu), and the chip is xazu3eg-sfvc-1-i, which has 360 DSP units.
+This project uses the hardware platform about Edgeboard Lite (Baidu), and the chip is xazu3eg-sfvc784-1-i, which has 360 DSPs and 216 BRAM_36Ks.
 ### FZ3-2019-12-30.pdf
-Hardware schematic
+Hardware schematic.
 ### edgeboard_lite_1200M.tcl
-Hardware configuration script file.
+Hardware configuration script file for Zynq UltraScale+ MPSoC IP core in Vivado.
 
 # Implementation of Different Parallelism Levels
 First implementation result is used to verify our research, and the board device is implemented as following:  
