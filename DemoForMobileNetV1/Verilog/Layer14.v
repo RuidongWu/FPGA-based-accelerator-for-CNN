@@ -1,0 +1,89 @@
+
+
+module Layer14
+(
+input   ap_clk,
+input   ap_rst_n,
+
+input  [7:0] ActDMA_V_V_TDATA,
+input   ActDMA_V_V_TVALID,
+output   ActDMA_V_V_TREADY,
+
+input  [31:0] WeightDMA_V_V_TDATA,
+input   WeightDMA_V_V_TVALID,
+output   WeightDMA_V_V_TREADY,
+
+output  [15:0] fcRes_V_V_TDATA,
+output   fcRes_V_V_TVALID,
+input   fcRes_V_V_TREADY
+);
+
+//Sync signal for WriteAct and PE
+wire   SyncSig_V;
+wire   SyncSig_V_ap_vld;
+wire   SyncSig_V_ap_ack;
+
+
+//Write ActBuf BRAM Ports.
+wire  [6:0] ActBuf_Data_V_address1;
+wire   ActBuf_Data_V_ce1;
+wire   ActBuf_Data_V_we1;
+wire  [63:0] ActBuf_Data_V_d1;
+wire  [63:0] ActBuf_Data_V_q1;
+
+Layer14_WriteAct U_Write14(
+.ap_clk                  (ap_clk                ),
+.ap_rst_n                (ap_rst_n              ),
+.ActDMA_V_TDATA     (ActDMA_V_V_TDATA      ),
+.ActDMA_V_TVALID    (ActDMA_V_V_TVALID     ),
+.ActDMA_V_TREADY    (ActDMA_V_V_TREADY     ),
+.SyncSig_V               (SyncSig_V             ),
+.SyncSig_V_ap_vld        (SyncSig_V_ap_vld      ),
+.SyncSig_V_ap_ack        (SyncSig_V_ap_ack      ),
+.ActBuf_Data_address0    (ActBuf_Data_V_address1),
+.ActBuf_Data_ce0         (ActBuf_Data_V_ce1     ),
+.ActBuf_Data_we0         (ActBuf_Data_V_we1     ),
+.ActBuf_Data_d0          (ActBuf_Data_V_d1      ),
+.ActBuf_Data_q0          (ActBuf_Data_V_q1      )
+);
+
+//Read ActBuf BRAM Ports.
+wire  [6:0] ActBuf_Data_V_address0;
+wire   ActBuf_Data_V_ce0;
+wire  [63:0] ActBuf_Data_V_q0;
+
+Layer14_PE_0 PE_14(
+.ap_clk                   (ap_clk                   ),
+.ap_rst_n                 (ap_rst_n                 ),
+.WeightDMA_V_V_TDATA      (WeightDMA_V_V_TDATA      ),
+.WeightDMA_V_V_TVALID     (WeightDMA_V_V_TVALID     ),
+.WeightDMA_V_V_TREADY     (WeightDMA_V_V_TREADY     ),
+.SyncSig_V                (SyncSig_V                ),
+.SyncSig_V_ap_vld         (SyncSig_V_ap_vld         ),
+.SyncSig_V_ap_ack         (SyncSig_V_ap_ack         ),
+.ActBuf_Data_address0     (ActBuf_Data_V_address0   ),
+.ActBuf_Data_ce0          (ActBuf_Data_V_ce0        ),
+.ActBuf_Data_q0           (ActBuf_Data_V_q0         ),
+.fcRes_V_V_TDATA          (fcRes_V_V_TDATA        ),
+.fcRes_V_V_TVALID         (fcRes_V_V_TVALID       ),
+.fcRes_V_V_TREADY         (fcRes_V_V_TREADY       )
+);
+
+
+Block_RAM #(.DWIDTH(64), .AWIDTH(7), .MEM_SIZE(128))
+BRAM_14(
+//Read Ports
+.addr0  (ActBuf_Data_V_address0),
+.ce0    (ActBuf_Data_V_ce0),
+.q0     (ActBuf_Data_V_q0),
+//Write Ports
+.addr1  (ActBuf_Data_V_address1),
+.ce1    (ActBuf_Data_V_ce1),
+.d1     (ActBuf_Data_V_d1),
+.q1     (ActBuf_Data_V_q1),
+.we1    (ActBuf_Data_V_we1),
+.clk    (ap_clk)
+);
+
+endmodule
+
