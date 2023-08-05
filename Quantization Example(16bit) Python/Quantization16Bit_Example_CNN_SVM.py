@@ -206,6 +206,6 @@ for i in range(0, 100):
     if (i + 1) % 100 == 0:
         print(i)
 
-print('*'*20)
+print('*'*30)
 print('success:', success)
 print('failure:', failure)
